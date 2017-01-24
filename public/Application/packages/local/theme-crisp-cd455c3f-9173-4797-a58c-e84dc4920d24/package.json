@@ -1,0 +1,52 @@
+{
+    "name": "theme-crisp-cd455c3f-9173-4797-a58c-e84dc4920d24",
+    "namespace": "Ext",
+    "type": "theme",
+    "extend": "theme-crisp",
+    "toolkit": "classic",
+    "creator": "Architect",
+    "summary": "Architect created theme. Edit through Architect. Manual edits here will likely be discarded.",
+    "detailedDescription": "Architect created theme. Edit through Architect. Manual edits here will likely be discarded.",
+    "version": "1.0.0",
+    "compatVersion": "1.0.0",
+    "format": "1",
+    "slicer": {
+        "js": [
+            {
+                "path": "${package.dir}/sass/example/custom.js",
+                "isWidgetManifest": true
+            }
+        ]
+    },
+    "output": "${package.dir}/build",
+    "local": true,
+    "sass": {
+    	"save":"${toolkit.name}/sass/save.scss",
+
+        "namespace": "",
+        "etc": [
+            "${package.dir}/sass/etc/all.scss"
+        ],
+        "var": [
+            "${package.dir}/sass/var"
+        ],
+        "src": [
+            "${package.dir}/sass/src"
+        ,	"${package.dir}/${toolkit.name}/sass/save"
+
+        ]
+    },
+    "classpath": [
+        "${package.dir}/src"
+    ],
+    "overrides": [
+        "${package.dir}/overrides"
+    ],
+    "example": {
+        "path": [
+            "${package.dir}/examples"
+        ]
+    },
+    "framework": "ext",
+    "requires": []
+}
