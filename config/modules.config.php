@@ -24,4 +24,6 @@ return [
     'Zend\Validator',
     'Application',
     'ZendDeveloperTools',
+    'Production',
+    'Admin',
 ];

@@ -23,7 +23,9 @@
     },
     "autoload": {
         "psr-4": {
-            "Application\\": "module/Application/src/"
+            "Application\\": "module/Application/src/",
+            "Production\\": "module/Production/src/",
+            "Admin\\": "module/Admin/src/"
         }
     },
     "autoload-dev": {

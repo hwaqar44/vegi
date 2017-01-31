@@ -1,11 +1,8 @@
 <?php 
 namespace Application\Controller\Factory;
 
-use Doctrine\Common\Util\Debug;
 use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
 use Interop\Container\ContainerInterface;
-use Application\Controller\IndexController;
 
 // Factory class
 class EntityManagerControllerFactory implements FactoryInterface
@@ -15,5 +12,5 @@ class EntityManagerControllerFactory implements FactoryInterface
         $entityManager = $container->get('doctrine.entitymanager.orm_default');
         return new $requestedName($entityManager, $auth);
     }
-	
+
 }

@@ -18,7 +18,7 @@ return [
      'authentication' => [
          'orm_default' => [
              'object_manager' => 'Doctrine\ORM\EntityManager',
-             'identity_class' => 'Application\Entity\Users',
+             'identity_class' => 'Application\Entity\User',
              'identity_property' => 'username',
              'credential_property' => 'password'
          ],
@@ -28,8 +28,8 @@ return [
                 'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
                 'cache' => 'array',
                 'paths' => [
-						__DIR__ . '/../src/Entity',
-						//__DIR__ . '/../src/Application/Entity',
+						__DIR__ . '/../src/Entity',//for application use
+						//__DIR__ . '/../src/Application/Entity', // for generating entities 
 						
 					]
             ],
@@ -65,6 +65,16 @@ return [
                     'defaults' => [
                         'controller' => Controller\LoginController::class,
                         'action'     => 'login',
+                    ],
+                ],
+            ],
+            'logout' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/logout',
+                    'defaults' => [
+                        'controller' => Controller\LoginController::class,
+                        'action'     => 'logout',
                     ],
                 ],
             ]
