@@ -43,7 +43,7 @@ class CategoryController extends AbstractActionController
     {
         $queryBuilder = $this->entityManager->createQueryBuilder();
         $query = $queryBuilder->select(array(
-            'category.categoryId as categoryId',
+            'category.categoryId as id',
             'category.name as name',
             'category.details as details',
         ))
@@ -71,7 +71,7 @@ class CategoryController extends AbstractActionController
         }
 
         $category->setName($data['name']);
-        $category->setDetails($data['details']);
+        $category->setDetails($data['detail']);
 
         if ($update){
             $this->entityManager->merge($category);
@@ -97,9 +97,9 @@ class CategoryController extends AbstractActionController
         $id = $this->params()->fromQuery('id', false);
         $queryBuilder = $this->entityManager->createQueryBuilder();
         $query = $queryBuilder->select(array(
-            'category.categoryId as categoryId',
+            'category.categoryId as id',
             'category.name as name',
-            'category.details as details',
+            'category.details as detail',
         ))
             ->from('Application\Entity\Category','category')
             ->where('category.categoryId = :id')
@@ -108,6 +108,25 @@ class CategoryController extends AbstractActionController
         return new JsonModel(array(
             "success" => "true",
             "item" => $result
+        ));
+    }
+	
+	 /**
+	 * load all categories
+	 * @return JsonModel JSON Data
+	 */
+    public function categoryAction()
+    {
+        $queryBuilder = $this->entityManager->createQueryBuilder();
+        $query = $queryBuilder->select(array(
+            'category.categoryId as id',
+            'category.name as text',
+        ))
+            ->from('Application\Entity\Category','category');
+        $result = $query->getQuery()->getResult();
+        return new JsonModel(array(
+            "success" => "true",
+            "items" => $result
         ));
     }
     

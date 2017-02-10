@@ -59,7 +59,8 @@ class ProductionController extends AbstractActionController
             'production.estimatedYield as estimatedYield',
             'production.harvestingStartDate as harvestingStartDate',
             'production.harvestingEndDate as harvestingEndDate',
-            'production.status as status',
+            'production.sowingDate as sowingDate',
+            'production.status as statusName',
             'category.name as categoryName',
             'area.name as areaName',
             'product.name as productName',
@@ -77,11 +78,11 @@ class ProductionController extends AbstractActionController
 
             $query->setMaxResults($limit);
         }
-        $query = $this->buildWhere($query, $postData);
-        $result = $query->getQuery()->getResult();
+       // $query = $this->buildWhere($query, $postData);
+        $result = $query->getQuery()->getScalarResult();
         return new JsonModel(array(
             "success" => "true",
-            "total" => $this->getCount(),
+            "total" => $this->getCount($postData),
             "item" => $result
         ));
     }
@@ -111,12 +112,14 @@ class ProductionController extends AbstractActionController
             $this->entityManager->find('Application\Entity\Category',$data['category'])
         );
         $production->setEstimatedYield($data['estimatedYield']);
-        $production->setNoOfPlants($data['noOfPlant']);
+        $production->setNoOfPlants($data['noOfPlants']);
         $production->setHarvestingEndDate(new \DateTime($data['harvestingEndDate']));
         $production->setHarvestingStartDate(new \DateTime($data['harvestingStartDate']));
         $production->setHarvestingStart(new \DateTime($data['harvestingStart']));
+        $production->setStatus($data['statusName']);
+        $production->setBatchNo($data['batchNo']);
         $production->setSowingDate(new \DateTime($data['sowingDate']));
-        $production->set(new \DateTime($data['sowingDate']));
+       // $production->set(new \DateTime($data['sowingDate']));
 
         if ($update){
             $this->entityManager->merge($production);
@@ -142,35 +145,36 @@ class ProductionController extends AbstractActionController
         $id = $this->params()->fromQuery('id', false);
         $queryBuilder = $this->entityManager->createQueryBuilder();
         $query = $queryBuilder->select(array(
-            'production.productionId as productionId',
+            'production.productionId as id',
             'production.batchNo as batchNo',
             'production.noOfPlants as noOfPlants',
             'production.harvestingStart as harvestingStart',
             'production.estimatedYield as estimatedYield',
             'production.harvestingStartDate as harvestingStartDate',
             'production.harvestingEndDate as harvestingEndDate',
-            'production.status as status',
-            'category.name as categoryName',
-            'area.name as areaName',
-            'product.name as productName',
+            'production.sowingDate as sowingDate',
+            'production.status as statusName',
+            'categories.name as category',
+            'areas.name as area',
+            'products.name as product',
         ))
             ->from('Application\Entity\Production','production')
-            ->leftJoin('production.category','category')
-            ->leftJoin('production.area','area')
-            ->leftJoin('production.product','product')
+            ->leftJoin('production.category','categories')
+            ->leftJoin('production.area','areas')
+            ->leftJoin('production.product','products')
             ->where('production.productionId = :id')
             ->setParameter('id',$id);
-        $result = $query->getQuery()->getResult();
+        $result = $query->getQuery()->getScalarResult();
         return new JsonModel(array(
             "success" => "true",
-            "item" => $result
+            "items" => $result
         ));
     }
 
     /**
      * @return bool|mixed
      */
-    protected function getCount()
+    protected function getCount($postData)
     {
         $queryBuilder = $this->entityManager->createQueryBuilder();
         $query = $queryBuilder->select(array(
@@ -180,6 +184,7 @@ class ProductionController extends AbstractActionController
             ->leftJoin('production.category','category')
             ->leftJoin('production.area','area')
             ->leftJoin('production.product','product');
+        $query = $this->buildWhere($query, $postData);
         $result = $query->getQuery()->getSingleScalarResult();
         if ($result)
             return $result;

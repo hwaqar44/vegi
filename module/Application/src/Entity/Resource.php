@@ -29,7 +29,7 @@ class Resource
     private $name;
 
     /**
-     * @var integer
+     * @var string
      *
      * @ORM\Column(name="details", type="text", length=65535, nullable=false)
      */
@@ -74,7 +74,7 @@ class Resource
     /**
      * Set details
      *
-     * @param integer $details
+     * @param string $details
      *
      * @return Resource
      */
@@ -88,7 +88,7 @@ class Resource
     /**
      * Get details
      *
-     * @return integer
+     * @return string
      */
     public function getDetails()
     {

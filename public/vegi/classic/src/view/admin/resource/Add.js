@@ -12,52 +12,79 @@ Ext.define('Vegi.view.admin.resource.Add', {
     },
 
     controller: 'adminResourceAdd',
+    width: 500,
+    height: 300,
 
-    cls: 'email-compose',
-
-    layout: {
-        type:'vbox',
-        align:'stretch'
-    },
-
-    bodyPadding: 10,
-    scrollable: true,
+    //cls: 'email-compose',
+    layout: 'fit',
+    title: 'Add Role',
 
     items: [
-		{
-			xtype: 'hidden',
-			name: 'id'
-		},
         {
-            xtype: 'textfield',
-            fieldLabel: 'Title',
-			name: 'name',
-			allowBlank: false
-        },
-        {
-            xtype: 'textareafield',
-            fieldLabel: 'Descriptions',
-			name: 'details',
-			
+            xtype: 'form',
+            bodyPadding: 10,
+            layout: {
+                type:'vbox',
+                align:'stretch'
+            },
+            items: [
+                {
+                    xtype: 'hidden',
+                    name: 'id'
+                },
+                {
+                    xtype: 'textfield',
+                    fieldLabel: 'Title',
+                    name: 'name',
+                    allowBlank: false
+                },
+                {
+                    xtype: 'textfield',
+                    fieldLabel: 'Code',
+                    name: 'code'
+                },
+                {
+                    xtype: 'textareafield',
+                    fieldLabel: 'Descriptions',
+                    name: 'details',
+                    
+                }
+            ]
         }
     ],
-
-    bbar: {
-        overflowHandler: 'menu',
-        items: [
-            '->',
-            {
-                xtype: 'button',
-                ui: 'soft-red',
-                text: 'Discard',
-                handler: 'onComposeDiscardClick'
+    dockedItems: [
+        {
+            xtype: 'container',
+            dock: 'bottom',
+            layout: {
+                type: 'hbox',
+                align: 'stretch',
+                padding: 10
             },
-            {
-                xtype: 'button',
-                ui: 'gray',
-                text: 'Save',
-				handler: 'onSaveButtonClick'
-            }
-        ]
-    }
+            items: [
+                {
+                    xtype: 'tbspacer',
+                    flex: 1
+                },
+                {
+                    xtype: 'button',
+                    iconCls: 'x-fa fa-ban',
+                    ui: 'soft-red',
+                    text: 'Discard',
+                    handler: 'onComposeDiscardClick'
+                },
+                {
+                    xtype: 'tbspacer',
+                    width: 5,
+                },
+                {
+                    xtype: 'button',
+                    iconCls: 'x-fa fa-floppy-o',
+                    ui: 'gray',
+                    text: 'Save',
+                    handler: 'onSaveButtonClick'
+                }
+            ]
+        }
+    ]
 });

@@ -44,7 +44,7 @@ class AreaController extends AbstractActionController
     {
         $queryBuilder = $this->entityManager->createQueryBuilder();
         $query = $queryBuilder->select(array(
-            'area.areaId as areaId',
+            'area.areaId as id',
             'area.name as name',
             'area.details as details',
         ))
@@ -72,7 +72,7 @@ class AreaController extends AbstractActionController
         }
 
         $area->setName($data['name']);
-        $area->setDetails($data['details']);
+        $area->setDetails($data['detail']);
 
         if ($update){
             $this->entityManager->merge($area);
@@ -98,9 +98,9 @@ class AreaController extends AbstractActionController
         $id = $this->params()->fromQuery('id', false);
         $queryBuilder = $this->entityManager->createQueryBuilder();
         $query = $queryBuilder->select(array(
-            'area.areaId as areaId',
+            'area.areaId as id',
             'area.name as name',
-            'area.details as details',
+            'area.details as detail',
         ))
             ->from('Application\Entity\Area','area')
             ->where('area.areaId = :id')
@@ -108,7 +108,26 @@ class AreaController extends AbstractActionController
         $result = $query->getQuery()->getResult();
         return new JsonModel(array(
             "success" => "true",
-            "item" => $result
+            "items" => $result
+        ));
+    }
+	
+	/**
+     * load all categories
+     * @return JsonModel JSON Data
+     */
+    public function areaAction()
+    {
+        $queryBuilder = $this->entityManager->createQueryBuilder();
+        $query = $queryBuilder->select(array(
+            'area.areaId as id',
+            'area.name as text',
+        ))
+            ->from('Application\Entity\Area','area');
+        $result = $query->getQuery()->getResult();
+        return new JsonModel(array(
+            "success" => "true",
+            "items" => $result
         ));
     }
     

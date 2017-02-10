@@ -44,9 +44,9 @@ class ProductController extends AbstractActionController
     {
         $queryBuilder = $this->entityManager->createQueryBuilder();
         $query = $queryBuilder->select(array(
-            'product.productId as productId',
+            'product.productId as id',
             'product.name as name',
-            'product.details as details',
+            'product.details as detail',
         ))
             ->from('Application\Entity\Product','product');
         $result = $query->getQuery()->getResult();
@@ -72,7 +72,7 @@ class ProductController extends AbstractActionController
         }
 
         $product->setName($data['name']);
-        $product->setDetails($data['details']);
+        $product->setDetails($data['detail']);
 
         if ($update){
             $this->entityManager->merge($product);
@@ -98,17 +98,36 @@ class ProductController extends AbstractActionController
         $id = $this->params()->fromQuery('id', false);
         $queryBuilder = $this->entityManager->createQueryBuilder();
         $query = $queryBuilder->select(array(
-            'product.productId as productId',
+            'product.productId as id',
             'product.name as name',
-            'product.details as details',
+            'product.details as detail',
         ))
-            ->from('Application\Entity\productId','product')
-            ->where('product.categoryId = :id')
+            ->from('Application\Entity\Product','product')
+            ->where('product.productId = :id')
             ->setParameter('id',$id);
         $result = $query->getQuery()->getResult();
         return new JsonModel(array(
             "success" => "true",
-            "item" => $result
+            "items" => $result
+        ));
+    }
+	
+	/**
+     * load all products
+     * @return JsonModel JSON Data
+     */
+    public function productAction()
+    {
+        $queryBuilder = $this->entityManager->createQueryBuilder();
+        $query = $queryBuilder->select(array(
+            'product.productId as id',
+            'product.name as text',
+        ))
+            ->from('Application\Entity\Product','product');
+        $result = $query->getQuery()->getResult();
+        return new JsonModel(array(
+            "success" => "true",
+            "items" => $result
         ));
     }
     

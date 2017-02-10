@@ -15,7 +15,7 @@ class Production
     /**
      * @var integer
      *
-     * @ORM\Column(name="production_id", type="integer", precision=0, scale=0, nullable=false, unique=false)
+     * @ORM\Column(name="production_id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -24,65 +24,65 @@ class Production
     /**
      * @var string
      *
-     * @ORM\Column(name="batch_no", type="string", length=255, precision=0, scale=0, nullable=false, unique=false)
+     * @ORM\Column(name="batch_no", type="string", length=255, nullable=false)
      */
     private $batchNo;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="no_of_plants", type="integer", precision=0, scale=0, nullable=false, unique=false)
+     * @ORM\Column(name="no_of_plants", type="integer", nullable=false)
      */
     private $noOfPlants;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="sowing_date", type="datetime", precision=0, scale=0, nullable=false, unique=false)
+     * @ORM\Column(name="sowing_date", type="datetime", nullable=false)
      */
     private $sowingDate;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="harvesting_start", type="datetime", precision=0, scale=0, nullable=false, unique=false)
+     * @ORM\Column(name="harvesting_start", type="datetime", nullable=false)
      */
     private $harvestingStart;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="estimated_yield", type="string", length=255, precision=0, scale=0, nullable=false, unique=false)
+     * @ORM\Column(name="estimated_yield", type="string", length=255, nullable=false)
      */
     private $estimatedYield;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="harvesting_start_date", type="datetime", precision=0, scale=0, nullable=false, unique=false)
+     * @ORM\Column(name="harvesting_start_date", type="datetime", nullable=false)
      */
     private $harvestingStartDate;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="harvesting_end_date", type="datetime", precision=0, scale=0, nullable=false, unique=false)
+     * @ORM\Column(name="harvesting_end_date", type="datetime", nullable=false)
      */
     private $harvestingEndDate;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="status", type="string", precision=0, scale=0, nullable=true, unique=false)
+     * @ORM\Column(name="status", type="string", nullable=true)
      */
-    private $status;
+    private $status = 'active';
 
     /**
      * @var \Application\Entity\Category
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\Category")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="category_id", referencedColumnName="category_id", nullable=true)
+     *   @ORM\JoinColumn(name="category_id", referencedColumnName="category_id")
      * })
      */
     private $category;
@@ -92,7 +92,7 @@ class Production
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\Product")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="product_id", referencedColumnName="product_id", nullable=true)
+     *   @ORM\JoinColumn(name="product_id", referencedColumnName="product_id")
      * })
      */
     private $product;
@@ -102,10 +102,11 @@ class Production
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\Area")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="area_id", referencedColumnName="area_id", nullable=true)
+     *   @ORM\JoinColumn(name="area_id", referencedColumnName="area_id")
      * })
      */
     private $area;
+
 
 
     /**
@@ -382,4 +383,3 @@ class Production
         return $this->area;
     }
 }
-

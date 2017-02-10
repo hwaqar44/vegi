@@ -1,4 +1,4 @@
-Ext.define('Admin.view.admin.resource.RoleModel', {
+Ext.define('Admin.view.admin.resource.ResourceModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.adminResource',
 

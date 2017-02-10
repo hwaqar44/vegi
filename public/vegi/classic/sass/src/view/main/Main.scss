@@ -109,9 +109,49 @@
     }
 }
 
+.sencha-user-name {
+	color: white;
+}
+
+.biggertext
+{
+    font-size: 16px;
+	color: white;
+	font-weight: bold;
+}
+
+.my-btn {
+	background-color: #5f5f5f !important;
+	background-image: none;
+}
+
+.my-btn .x-btn-inner {
+	font-family: Verdana,sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.search-button-textfield {
+	color: #025b80;
+}
+
+.search-textfield-main-toolbar {
+    border: 2px solid #ccc;
+}
+
+.main-toolbar-category {
+	border-width: 1px;
+	background-color: #dcdcdc;
+}
+
+.grid-toolbar {
+	background-color: #f5f5f5;
+}
+
 .sencha-dash-dash-headerbar {
     padding:0 30px 0 0;
     position:fixed;
+	background-color: #5f5f5f;
     width:100%;
     z-index:10;
     border:none;

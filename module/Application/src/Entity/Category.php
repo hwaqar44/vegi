@@ -15,7 +15,7 @@ class Category
     /**
      * @var integer
      *
-     * @ORM\Column(name="category_id", type="integer", precision=0, scale=0, nullable=false, unique=false)
+     * @ORM\Column(name="category_id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -24,16 +24,17 @@ class Category
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, precision=0, scale=0, nullable=false, unique=false)
+     * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="details", type="text", length=65535, precision=0, scale=0, nullable=false, unique=false)
+     * @ORM\Column(name="details", type="text", length=65535, nullable=false)
      */
     private $details;
+
 
 
     /**
@@ -94,4 +95,3 @@ class Category
         return $this->details;
     }
 }
-

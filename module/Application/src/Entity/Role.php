@@ -42,6 +42,28 @@ class Role
      */
     private $details;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Application\Entity\User", mappedBy="role")
+     */
+    private $user;
+
+    /**
+     * @var \Application\Entity\GroupRole
+     *
+     * @ORM\OneToMany(targetEntity="Application\Entity\GroupRole", mappedBy="role")
+     */
+    private $groupRole;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->user = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->GroupRole = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
 
     /**
@@ -124,5 +146,39 @@ class Role
     public function getDetails()
     {
         return $this->details;
+    }
+
+    /**
+     * Add user
+     *
+     * @param \Application\Entity\User $user
+     *
+     * @return Role
+     */
+    public function addUser(\Application\Entity\User $user)
+    {
+        $this->user[] = $user;
+
+        return $this;
+    }
+
+    /**
+     * Remove user
+     *
+     * @param \Application\Entity\User $user
+     */
+    public function removeUser(\Application\Entity\User $user)
+    {
+        $this->user->removeElement($user);
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

@@ -15,7 +15,7 @@ class User
     /**
      * @var integer
      *
-     * @ORM\Column(name="user_id", type="integer", precision=0, scale=0, nullable=false, unique=false)
+     * @ORM\Column(name="user_id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -24,37 +24,60 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="username", type="string", length=50, precision=0, scale=0, nullable=false, unique=false)
+     * @ORM\Column(name="username", type="string", length=50, nullable=false)
      */
     private $username;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, precision=0, scale=0, nullable=false, unique=false)
+     * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255, precision=0, scale=0, nullable=false, unique=false)
+     * @ORM\Column(name="email", type="string", length=255, nullable=false)
      */
     private $email;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string", length=255, precision=0, scale=0, nullable=false, unique=false)
+     * @ORM\Column(name="password", type="string", length=255, nullable=false)
      */
     private $password;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="status", type="string", precision=0, scale=0, nullable=true, unique=false)
+     * @ORM\Column(name="status", type="string", nullable=true)
      */
-    private $status;
+    private $status = 'inactive';
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Application\Entity\Role", inversedBy="user")
+     * @ORM\JoinTable(name="user_role",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="user_id", referencedColumnName="user_id")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="role_id", referencedColumnName="role_id")
+     *   }
+     * )
+     */
+    private $role;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->role = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
 
     /**
@@ -186,5 +209,38 @@ class User
     {
         return $this->status;
     }
-}
 
+    /**
+     * Add role
+     *
+     * @param \Application\Entity\Role $role
+     *
+     * @return User
+     */
+    public function addRole(\Application\Entity\Role $role)
+    {
+        $this->role[] = $role;
+
+        return $this;
+    }
+
+    /**
+     * Remove role
+     *
+     * @param \Application\Entity\Role $role
+     */
+    public function removeRole(\Application\Entity\Role $role)
+    {
+        $this->role->removeElement($role);
+    }
+
+    /**
+     * Get role
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+}
