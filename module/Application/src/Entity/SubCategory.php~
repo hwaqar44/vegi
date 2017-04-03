@@ -1,0 +1,49 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * SubCategory
+ *
+ * @ORM\Table(name="sub_category", indexes={@ORM\Index(name="category_id", columns={"category_id"})})
+ * @ORM\Entity
+ */
+class SubCategory
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="sub_categroy_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $subCategroyId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255, nullable=false)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="details", type="text", length=65535, nullable=false)
+     */
+    private $details;
+
+    /**
+     * @var \Application\Entity\Category
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Category")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="category_id", referencedColumnName="category_id")
+     * })
+     */
+    private $category;
+
+
+}

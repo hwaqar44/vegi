@@ -1,0 +1,80 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Disease
+ *
+ * @ORM\Table(name="disease", indexes={@ORM\Index(name="product_id", columns={"product_id", "area_id"}), @ORM\Index(name="area_id", columns={"area_id"}), @ORM\Index(name="IDX_F3B6AC14584665A", columns={"product_id"})})
+ * @ORM\Entity
+ */
+class Disease
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="disease_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $diseaseId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="problem", type="text", length=65535, nullable=false)
+     */
+    private $problem;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pesticide", type="string", length=255, nullable=false)
+     */
+    private $pesticide;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="recommended_rate", type="string", length=255, nullable=false)
+     */
+    private $recommendedRate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="applied_date", type="datetime", nullable=false)
+     */
+    private $appliedDate;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="details", type="text", length=65535, nullable=false)
+     */
+    private $details;
+
+    /**
+     * @var \Application\Entity\Product
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Product")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="product_id", referencedColumnName="product_id")
+     * })
+     */
+    private $product;
+
+    /**
+     * @var \Application\Entity\Area
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Area")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="area_id", referencedColumnName="area_id")
+     * })
+     */
+    private $area;
+
+
+}

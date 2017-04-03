@@ -1,0 +1,87 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Aop
+ *
+ * @ORM\Table(name="aop", indexes={@ORM\Index(name="sub_category_id", columns={"sub_category_id", "product_id"}), @ORM\Index(name="product_id", columns={"product_id"}), @ORM\Index(name="IDX_4347E51F7BFE87C", columns={"sub_category_id"})})
+ * @ORM\Entity
+ */
+class Aop
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="aop_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $aopId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="quantity", type="string", length=255, nullable=false)
+     */
+    private $quantity;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="area", type="string", length=255, nullable=false)
+     */
+    private $area;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="price", type="string", length=255, nullable=false)
+     */
+    private $price;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="total", type="string", length=255, nullable=false)
+     */
+    private $total;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="year", type="string", length=4, nullable=false)
+     */
+    private $year;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="details", type="text", length=65535, nullable=false)
+     */
+    private $details;
+
+    /**
+     * @var \Application\Entity\SubCategory
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\SubCategory")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="sub_category_id", referencedColumnName="sub_categroy_id")
+     * })
+     */
+    private $subCategory;
+
+    /**
+     * @var \Application\Entity\Product
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Product")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="product_id", referencedColumnName="product_id")
+     * })
+     */
+    private $product;
+
+
+}
